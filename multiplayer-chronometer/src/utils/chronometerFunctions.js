@@ -9,9 +9,9 @@ export const DBFunctions = {
     startTimer: (id, value) => {
         console.log(id, value)
         try {
-            set(ref(database, `${id}`), { startTime: value })
+            //set(ref(database, `${id}`), { startTime: value })
             console.log("llego!")
-            set(ref(database, `${id}/lastStatus`), { status: 1, timestamp: value, progress: 0 })
+            set(ref(database, `${id}`), { startTime: value, lastStatus: {status: 1, timestamp: value, progress: 0 }})
         } catch (err) { console.log(err) }
     },
     // Momento de inicio (ms)

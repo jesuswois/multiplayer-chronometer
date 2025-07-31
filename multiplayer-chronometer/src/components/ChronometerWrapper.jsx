@@ -25,7 +25,7 @@ export default function ChronometerWrapper() {
                 // Esta en progreso
                 console.log(lastStatus)
                 console.log(lastStatus?.status)
-                if(lastStatus?.status==1){
+                if(lastStatus.status==1){
                     time=setInterval(()=>{
                         setTimer(Date.now()-lastStatus.timestamp+lastStatus.progress)
                     },10)
