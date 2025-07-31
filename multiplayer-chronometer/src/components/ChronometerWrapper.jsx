@@ -17,30 +17,34 @@ export default function ChronometerWrapper() {
     useEffect(() => {
         let time
         // Firebase Chronometer Listener
-        const query = db.query(db.ref(database,`${id}`))
-        const unsuscribe = db.onValue(query, (ss) => {
+        const unsuscribe = db.onValue(db.ref(database,`${id}`), (ss) => {
             const value = ss.val()
-            console.log(value)
             // Si el cronometro tiene un startTime establecido (ya ha sido iniciado)
             if(value?.startTime){
                 const lastStatus = value.lastStatus
                 // Esta en progreso
-                setTimer(Date.now()-lastStatus.timestamp+lastStatus.progress)
-                if(lastStatus.status==1){
+                console.log(lastStatus)
+                console.log(lastStatus?.status)
+                if(lastStatus?.status==1){
                     time=setInterval(()=>{
                         setTimer(Date.now()-lastStatus.timestamp+lastStatus.progress)
                     },10)
+                } else {
+                    setTimer(lastStatus?.progress)
                 }
-                setState(value.lastStatus.status)
-            } else{setState(-1)}
+                setState(value?.lastStatus?.status)
+            } else{setState(-1);setTimer(0)}
         })
 
         // Runners listener...
         /*
         ...ref(database,`lastRunners`)
         */
-        return () => unsuscribe();clearInterval(time);
-    }, [id])
+        return () => {
+            clearInterval(time)
+            unsuscribe();
+        }
+    }, [id,state])
 
     return (
         <>

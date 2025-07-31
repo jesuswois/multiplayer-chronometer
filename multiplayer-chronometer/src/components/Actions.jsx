@@ -7,7 +7,7 @@ export default function ({ id, state, time }) {
         switch (action) {
             // Pause
             case 0:
-                DBFunctions.changeStatus(id, action)
+                DBFunctions.changeStatus(id, action,Date.now(),time)
             // Play
             case 1:
                 try{
@@ -24,7 +24,7 @@ export default function ({ id, state, time }) {
                 break;
             // Stop
             case 2:
-                DBFunctions.changeStatus(id, action)
+                DBFunctions.changeStatus(id, action,Date.now(),time)
                 break;
         }
     }

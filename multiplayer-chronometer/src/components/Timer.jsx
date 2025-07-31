@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { formatTime } from '../utils/formatTime'
 
 export default function Timer({time}) {
