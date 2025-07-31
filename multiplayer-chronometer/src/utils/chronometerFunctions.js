@@ -7,7 +7,12 @@ export const DBFunctions = {
     },
     // Initialize
     startTimer:(id,value)=>{
-        set(ref(database,`${id}`,{startTime:value,lastStatus:{status:1,timestamp:value,progress:0}}))
+        console.log(id,value)
+        try{
+        set(ref(database,`${id}`),{startTime:value})
+        console.log("llego!")
+        set(ref(database,`${id}/lastStatus`),{status:1,timestamp:value,progress:0})
+        }catch(err){console.log(err)}
     },
     // Momento de inicio (ms)
     setStartTime:(id,value)=>{
@@ -26,9 +31,15 @@ export const DBFunctions = {
     },
     // Status (0 Pausado | 1 En progreso | 2 Finalizado)
     changeStatus:(id,status,timestamp,progress)=>{
-        set(ref(database,`${id}/lastStatus/status`),status)
-        set(ref(database,`${id}/lastStatus/timestamp`),timestamp)
         set(ref(database,`${id}/lastStatus/progress`),progress)
+        set(ref(database,`${id}/lastStatus/timestamp`),timestamp)
+        set(ref(database,`${id}/lastStatus/status`),status)
+        /*
+        Can't access undefined 
+        this.setStatus(id,status)
+        this.setTimestamp(id,timestamp)
+        this.setProgress(id,progress)
+        */
     },
     
 

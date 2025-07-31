@@ -20,7 +20,7 @@ export default function ChronometerWrapper() {
         const query = db.query(db.ref(database,`${id}`))
         const unsuscribe = db.onValue(query, (ss) => {
             const value = ss.val()
-            console.log("entered")
+            console.log(value)
             // Si el cronometro tiene un startTime establecido (ya ha sido iniciado)
             if(value?.startTime){
                 const lastStatus = value.lastStatus
